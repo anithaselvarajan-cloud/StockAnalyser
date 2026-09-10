@@ -1,0 +1,1469 @@
+<title>Portfolio Ledger</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --bg: #f6f3ec;
+    --surface: #fffdf9;
+    --surface-2: #efe9dc;
+    --ink: #1d2a2e;
+    --ink-muted: #5c6d70;
+    --ink-faint: #8b9a9c;
+    --border: #ddd4c0;
+    --accent: #2b6e7c;
+    --accent-ink: #0f3a43;
+    --accent-soft: #dfe9e6;
+
+    --buy: #2e7d4f;
+    --buy-bg: #e2f0e5;
+    --hold: #9a6b1e;
+    --hold-bg: #f7ecd8;
+    --sell: #ac3b3b;
+    --sell-bg: #f6e2e0;
+    --noact: #6b6659;
+    --noact-bg: #eae5da;
+
+    --shadow: 0 1px 2px rgba(29,42,46,0.06), 0 8px 24px -12px rgba(29,42,46,0.18);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12181a;
+      --surface: #1a2124;
+      --surface-2: #212a2d;
+      --ink: #e9e5da;
+      --ink-muted: #9fada f;
+      --ink-muted: #9fadaf;
+      --ink-faint: #6d7a7c;
+      --border: #303a3d;
+      --accent: #6bb3c0;
+      --accent-ink: #cdeaee;
+      --accent-soft: #223335;
+
+      --buy: #6fcf97;
+      --buy-bg: #1c2e22;
+      --hold: #e0b356;
+      --hold-bg: #332a17;
+      --sell: #e5817a;
+      --sell-bg: #33201e;
+      --noact: #a3a094;
+      --noact-bg: #262521;
+
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #12181a;
+    --surface: #1a2124;
+    --surface-2: #212a2d;
+    --ink: #e9e5da;
+    --ink-muted: #9fadaf;
+    --ink-faint: #6d7a7c;
+    --border: #303a3d;
+    --accent: #6bb3c0;
+    --accent-ink: #cdeaee;
+    --accent-soft: #223335;
+
+    --buy: #6fcf97;
+    --buy-bg: #1c2e22;
+    --hold: #e0b356;
+    --hold-bg: #332a17;
+    --sell: #e5817a;
+    --sell-bg: #33201e;
+    --noact: #a3a094;
+    --noact-bg: #262521;
+
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ---------- header ---------- */
+
+  header.masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 18px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+
+  .masthead-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .masthead-meta {
+    text-align: right;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: var(--ink-muted);
+    line-height: 1.7;
+  }
+
+  .masthead-meta strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .theme-toggle {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--ink-muted);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    cursor: pointer;
+    margin-top: 6px;
+  }
+  .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+  .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- summary strip ---------- */
+
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+
+  .stat {
+    background: var(--surface);
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stat .count {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 30px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat .label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-muted);
+  }
+
+  .stat.buy .count { color: var(--buy); }
+  .stat.hold .count { color: var(--hold); }
+  .stat.sell .count { color: var(--sell); }
+  .stat.noact .count { color: var(--noact); }
+
+  /* ---------- methodology note ---------- */
+
+  .method {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--accent-soft);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 32px;
+    font-size: 13.5px;
+    color: var(--ink);
+  }
+  .method .mark {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1.2;
+    flex-shrink: 0;
+  }
+  .method p { margin: 0; color: var(--ink-muted); }
+  .method strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- table ---------- */
+
+  .table-head {
+    display: grid;
+    grid-template-columns: 84px 1.5fr 90px 90px 90px 120px 110px;
+    padding: 0 18px 8px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--ink-faint);
+    border-bottom: 1px solid var(--border);
+    gap: 8px;
+  }
+  .table-head span:nth-child(n+3) { text-align: center; }
+
+  .rows { display: flex; flex-direction: column; }
+
+  .row {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .row-main {
+    display: grid;
+    grid-template-columns: 84px 1.5fr 90px 90px 90px 120px 110px;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px;
+    cursor: pointer;
+    background: var(--surface);
+    transition: background 0.12s ease;
+  }
+  .row-main:hover { background: var(--surface-2); }
+  .row-main:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+  .ticker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+  }
+
+  .company {
+    font-size: 13.5px;
+    color: var(--ink-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .cat-score {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13.5px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-muted);
+  }
+  .cat-score.na { color: var(--ink-faint); font-style: italic; }
+
+  .overall-cell { display: flex; align-items: center; gap: 8px; }
+  .overall-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 14px;
+    font-variant-numeric: tabular-nums;
+    width: 34px;
+    text-align: right;
+  }
+  .overall-bar-track {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--surface-2);
+    overflow: hidden;
+  }
+  .overall-bar-fill { height: 100%; border-radius: 3px; }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 5px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .pill.buy { background: var(--buy-bg); color: var(--buy); }
+  .pill.hold { background: var(--hold-bg); color: var(--hold); }
+  .pill.sell { background: var(--sell-bg); color: var(--sell); }
+  .pill.noact { background: var(--noact-bg); color: var(--noact); }
+
+  .chevron {
+    display: inline-block;
+    margin-left: 8px;
+    color: var(--ink-faint);
+    transition: transform 0.15s ease;
+    font-size: 11px;
+  }
+  .row.open .chevron { transform: rotate(90deg); }
+
+  /* ---------- detail panel ---------- */
+
+  .detail {
+    display: none;
+    background: var(--surface-2);
+    padding: 4px 18px 22px;
+  }
+  .row.open .detail { display: block; }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 12px;
+  }
+
+  .detail-cat h4 {
+    margin: 0 0 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--ink-faint);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .param {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 11px;
+    margin-bottom: 7px;
+    font-size: 12.5px;
+  }
+  .param-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 3px;
+  }
+  .param-name { color: var(--ink-muted); font-weight: 500; }
+  .param-score {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .param-value {
+    color: var(--ink);
+    font-size: 12.5px;
+    line-height: 1.45;
+  }
+  .param-source {
+    margin-top: 4px;
+    font-size: 10.5px;
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+  .param.null { opacity: 0.6; }
+
+  .row-note {
+    margin-top: 14px;
+    padding: 10px 12px;
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+  .row-note strong { color: var(--ink); }
+
+  /* ---------- footer ---------- */
+
+  footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--ink-faint);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  @media (max-width: 720px) {
+    .table-head { display: none; }
+    .row-main {
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+        "ticker decision"
+        "company company"
+        "scores scores";
+      row-gap: 6px;
+    }
+    .ticker { grid-area: ticker; }
+    .company { grid-area: company; white-space: normal; }
+    .row-main > .pill-wrap { grid-area: decision; }
+    .row-main .cat-score:nth-of-type(1) { grid-area: scores; }
+    .overall-cell, .cat-score { display: none; }
+    .row-main .pill-wrap { display: flex; }
+    .detail-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+
+<div class="wrap">
+  <header class="masthead">
+    <div>
+      <div class="masthead-title">Portfolio Ledger</div>
+    </div>
+    <div class="masthead-meta">
+      Review Date: <strong id="reviewDate">—</strong><br>
+      Research Mode: <strong>Internet Search</strong><br>
+      <button class="theme-toggle" id="themeToggle" type="button">toggle theme</button>
+    </div>
+  </header>
+
+  <section class="summary" id="summary" aria-label="Decision totals"></section>
+
+  <div class="method">
+    <span class="mark">§</span>
+    <p><strong>Scoring.</strong> Each stock is scored 0–10 across five technical, five fundamental, and five sentiment parameters, averaged per category, then combined into an <strong>Overall Score</strong> weighted roughly equally across the three. <strong>BUY</strong> ≥ 7.0 · <strong>HOLD</strong> 4.0–6.9 · <strong>SELL</strong> &lt; 4.0 · <strong>NO ACTION</strong> when two or more parameters in any single category are unresolved. Click a row for the full parameter breakdown and sources.</p>
+  </div>
+
+  <div class="table-head">
+    <span>Ticker</span>
+    <span>Company</span>
+    <span>Tech.</span>
+    <span>Fund.</span>
+    <span>Sent.</span>
+    <span>Overall</span>
+    <span>Decision</span>
+  </div>
+
+  <div class="rows" id="rows"></div>
+
+  <footer>
+    <span>Point-in-time snapshot — not investment advice.</span>
+    <span id="genCount">—</span>
+  </footer>
+</div>
+
+<script>
+const DATA = [
+{
+"ticker": "NVDA",
+"company": "Nvidia Corp",
+"technical": {
+"Price vs 50-day MA": {
+"value": "+2.8% ($230.36 vs $224.03)",
+"score": 6,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Price vs 200-day MA": {
+"value": "+6.3% ($230.36 vs $216.67)",
+"score": 7,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"RSI (14-day)": {
+"value": "58.3",
+"score": 4,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Relative performance vs S&P 500 (3-month)": {
+"value": "NVDA +19.6% vs S&P 500 ~+1-2% -> outperformance ~18-20pp",
+"score": 9,
+"source": "StockAnalysis.com; FRED S&P 500, accessed 2026-09-06"
+},
+"Volatility / Beta": {
+"value": "2.22",
+"score": 3,
+"source": "StockAnalysis.com, accessed 2026-09-06"
+}
+},
+"fundamental": {
+"P/E ratio vs sector average": {
+"value": "Trailing P/E 29.13 vs sector avg ~30-35 (roughly in-line to slightly below)",
+"score": 6,
+"source": "stockanalysis.com/stocks/nvda/statistics, accessed 2026-09-06"
+},
+"Revenue growth (YoY, most recent quarter or TTM)": {
+"value": "TTM revenue growth +83.4% YoY",
+"score": 10,
+"source": "stockanalysis.com/stocks/nvda/financials, accessed 2026-09-06"
+},
+"Earnings growth (YoY)": {
+"value": "TTM EPS growth +125.3% YoY",
+"score": 10,
+"source": "stockanalysis.com/stocks/nvda/financials, accessed 2026-09-06"
+},
+"Profit margin (operating margin, most recent)": {
+"value": "Operating margin 65.2%",
+"score": 10,
+"source": "stockanalysis.com/stocks/nvda/statistics, accessed 2026-09-06"
+},
+"Debt-to-equity ratio": {
+"value": "D/E 0.17",
+"score": 10,
+"source": "stockanalysis.com/stocks/nvda/statistics, accessed 2026-09-06"
+}
+},
+"sentiment": {
+"Analyst consensus rating": {
+"value": "Strong Buy - 60 analysts: 48 Strong Buy, 9 Buy, 2 Hold, 1 Strong Sell; avg PT $325.99 (+41.5% upside)",
+"score": 10,
+"source": "stockanalysis.com/stocks/nvda/forecast, accessed 2026-09-06"
+},
+"Recent analyst rating changes (last 30 days)": {
+"value": "Minor shift in Aug 2026, broadly no material net downgrades",
+"score": 6,
+"source": "stockanalysis.com/stocks/nvda/forecast, accessed 2026-09-06"
+},
+"Recent news sentiment (last 30 days)": {
+"value": "Mixed-to-positive: early-Aug AI sell-off, Jensen Huang urged buying the discount, Morgan Stanley bullish ahead of earnings",
+"score": 6,
+"source": "The Motley Fool, itiger.com, accessed 2026-09-06"
+},
+"Short interest (% of float)": {
+"value": "1.23% of float",
+"score": 10,
+"source": "fintel.io/ss/us/nvda, accessed 2026-09-06"
+},
+"Insider buying/selling activity (last 90 days)": {
+"value": "Notable net insider selling: ~$3.3B in executive stock sales reported",
+"score": 2,
+"source": "Kresmion Research, TECHi, accessed 2026-09-06"
+}
+},
+"techScore": 5.8,
+"fundScore": 9.2,
+"sentScore": 6.8,
+"overall": 7.27,
+"decision": "BUY",
+"notes": ""
+},
+{
+"ticker": "AAPL",
+"company": "Apple Inc",
+"technical": {
+"Price vs 50-day MA": {
+"value": "-0.3% ($319.97 vs $321.06)",
+"score": 5,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Price vs 200-day MA": {
+"value": "+1.8% ($319.97 vs $314.37)",
+"score": 5,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"RSI (14-day)": {
+"value": "41.96",
+"score": 6,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Relative performance vs S&P 500 (3-month)": {
+"value": "AAPL +12.8% vs S&P 500 ~+1-2% -> outperform ~11pp",
+"score": 7,
+"source": "StockAnalysis.com; FRED S&P 500, accessed 2026-09-06"
+},
+"Volatility / Beta": {
+"value": "1.09",
+"score": 8,
+"source": "StockAnalysis.com, accessed 2026-09-06"
+}
+},
+"fundamental": {
+"P/E ratio vs sector average": {
+"value": "Trailing P/E 36.71 vs sector avg ~30 (roughly 20% above)",
+"score": 4,
+"source": "stockanalysis.com; gurufocus.com, accessed 2026-09-06"
+},
+"Revenue growth (YoY, most recent quarter or TTM)": {
+"value": "TTM revenue growth +14.2% YoY",
+"score": 7,
+"source": "stockanalysis.com/stocks/aapl/financials, accessed 2026-09-06"
+},
+"Earnings growth (YoY)": {
+"value": "TTM EPS growth +32.6% YoY",
+"score": 9,
+"source": "stockanalysis.com/stocks/aapl/financials, accessed 2026-09-06"
+},
+"Profit margin (operating margin, most recent)": {
+"value": "Operating margin 33.2%",
+"score": 7,
+"source": "stockanalysis.com/stocks/aapl/statistics, accessed 2026-09-06"
+},
+"Debt-to-equity ratio": {
+"value": "D/E 0.78",
+"score": 6,
+"source": "stockanalysis.com/stocks/aapl/statistics, accessed 2026-09-06"
+}
+},
+"sentiment": {
+"Analyst consensus rating": {
+"value": "Buy - 44 analysts: 19 Strong Buy, 6 Buy, 13 Hold, 3 Sell, 3 Strong Sell; avg PT $324.53 (+1.4% upside)",
+"score": 8,
+"source": "stockanalysis.com/stocks/aapl/forecast, accessed 2026-09-06"
+},
+"Recent analyst rating changes (last 30 days)": {
+"value": "Net negative drift: Strong Buy fell 25->19; Sell/Strong Sell rose; UBS reaffirmed Neutral $280",
+"score": 4,
+"source": "stockanalysis.com; Yahoo Finance, accessed 2026-09-06"
+},
+"Recent news sentiment (last 30 days)": {
+"value": "Mixed: rising into Sept 9 foldable iPhone event/CEO speculation, but some flag weak sentiment into earnings",
+"score": 5,
+"source": "Invezz, TipRanks, SeekingAlpha, accessed 2026-09-06"
+},
+"Short interest (% of float)": {
+"value": "0.80% of float",
+"score": 10,
+"source": "fintel.io/ss/us/aapl, accessed 2026-09-06"
+},
+"Insider buying/selling activity (last 90 days)": {
+"value": "Routine insider selling (10b5-1 plans), no notable buying",
+"score": 4,
+"source": "GuruFocus, StockTitan, accessed 2026-09-06"
+}
+},
+"techScore": 6.2,
+"fundScore": 6.6,
+"sentScore": 6.2,
+"overall": 6.33,
+"decision": "HOLD",
+"notes": ""
+},
+{
+"ticker": "GOOGL",
+"company": "Alphabet Inc Class A",
+"technical": {
+"Price vs 50-day MA": {
+"value": "-0.46% ($338.46 vs $340.02)",
+"score": 5,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Price vs 200-day MA": {
+"value": "-2.5% ($338.46 vs $347.20)",
+"score": 4,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"RSI (14-day)": {
+"value": "45.5",
+"score": 5,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Relative performance vs S&P 500 (3-month)": {
+"value": "GOOGL +0.3% vs S&P 500 ~+1-2% -> roughly in line",
+"score": 5,
+"source": "StockAnalysis.com; FRED S&P 500, accessed 2026-09-06"
+},
+"Volatility / Beta": {
+"value": "1.22",
+"score": 5,
+"source": "StockAnalysis.com, accessed 2026-09-06"
+}
+},
+"fundamental": {
+"P/E ratio vs sector average": {
+"value": "Trailing P/E 16.98 vs sector avg ~30 (40%+ below, profitable)",
+"score": 10,
+"source": "stockanalysis.com/stocks/googl/statistics, accessed 2026-09-06"
+},
+"Revenue growth (YoY, most recent quarter or TTM)": {
+"value": "TTM revenue growth +20.1% YoY",
+"score": 8,
+"source": "stockanalysis.com/stocks/googl/financials, accessed 2026-09-06"
+},
+"Earnings growth (YoY)": {
+"value": "TTM EPS growth +112.5% YoY",
+"score": 10,
+"source": "stockanalysis.com/stocks/googl/financials, accessed 2026-09-06"
+},
+"Profit margin (operating margin, most recent)": {
+"value": "Operating margin 33.1%",
+"score": 7,
+"source": "stockanalysis.com/stocks/googl/statistics, accessed 2026-09-06"
+},
+"Debt-to-equity ratio": {
+"value": "D/E 0.19",
+"score": 10,
+"source": "stockanalysis.com/stocks/googl/statistics, accessed 2026-09-06"
+}
+},
+"sentiment": {
+"Analyst consensus rating": {
+"value": "Strong Buy - 64 analysts: 46 Strong Buy, 13 Buy, 5 Hold; avg PT $428.07 (+26.5% upside)",
+"score": 10,
+"source": "stockanalysis.com/stocks/googl/forecast, accessed 2026-09-06"
+},
+"Recent analyst rating changes (last 30 days)": {
+"value": "Continued bullish reiterations from Rosenblatt, Morgan Stanley; no significant downgrades",
+"score": 7,
+"source": "stockanalysis.com/stocks/googl/forecast, accessed 2026-09-06"
+},
+"Recent news sentiment (last 30 days)": {
+"value": "Positive: Gemini 3.8 launch, antitrust court win, renewed AI momentum",
+"score": 9,
+"source": "CNBC, ad-hoc-news.de, accessed 2026-09-06"
+},
+"Short interest (% of float)": {
+"value": "1.35% of float",
+"score": 10,
+"source": "fintel.io/ss/us/googl, accessed 2026-09-06"
+},
+"Insider buying/selling activity (last 90 days)": {
+"value": "Routine/mixed insider selling, no notable buying, no scandal",
+"score": 5,
+"source": "MarketBeat, GuruFocus, accessed 2026-09-06"
+}
+},
+"techScore": 4.8,
+"fundScore": 9.0,
+"sentScore": 8.2,
+"overall": 7.33,
+"decision": "BUY",
+"notes": ""
+},
+{
+"ticker": "MSFT",
+"company": "Microsoft Corp",
+"technical": {
+"Price vs 50-day MA": {
+"value": "-1.1% ($499.70 vs $505.31)",
+"score": 5,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Price vs 200-day MA": {
+"value": "+2.4% ($499.70 vs $487.87)",
+"score": 6,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"RSI (14-day)": {
+"value": "42.7",
+"score": 6,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Relative performance vs S&P 500 (3-month)": {
+"value": "MSFT +34.0% vs S&P 500 ~+1-2% -> outperform >15pp",
+"score": 9,
+"source": "StockAnalysis.com; FRED S&P 500, accessed 2026-09-06"
+},
+"Volatility / Beta": {
+"value": "1.11",
+"score": 8,
+"source": "StockAnalysis.com, accessed 2026-09-06"
+}
+},
+"fundamental": {
+"P/E ratio vs sector average": {
+"value": "Trailing P/E 27.84 vs sector avg ~30 (within +/-20%)",
+"score": 6,
+"source": "stockanalysis.com/stocks/msft/statistics, accessed 2026-09-06"
+},
+"Revenue growth (YoY, most recent quarter or TTM)": {
+"value": "FY2026 revenue growth +17.8% YoY",
+"score": 8,
+"source": "stockanalysis.com/stocks/msft/financials, accessed 2026-09-06"
+},
+"Earnings growth (YoY)": {
+"value": "FY2026 net income growth ~+31.3% YoY",
+"score": 9,
+"source": "stockanalysis.com/stocks/msft/financials, accessed 2026-09-06"
+},
+"Profit margin (operating margin, most recent)": {
+"value": "Operating margin 46.8%",
+"score": 10,
+"source": "stockanalysis.com/stocks/msft/statistics, accessed 2026-09-06"
+},
+"Debt-to-equity ratio": {
+"value": "D/E 0.29",
+"score": 10,
+"source": "stockanalysis.com/stocks/msft/statistics, accessed 2026-09-06"
+}
+},
+"sentiment": {
+"Analyst consensus rating": {
+"value": "Strong Buy - 55 analysts: 38 Strong Buy, 14 Buy, 3 Hold; avg PT $571.38 (+14.3% upside)",
+"score": 10,
+"source": "stockanalysis.com/stocks/msft/forecast, accessed 2026-09-06"
+},
+"Recent analyst rating changes (last 30 days)": {
+"value": "Slight bearish drift, Strong Buy 43->38, still net bullish",
+"score": 6,
+"source": "stockanalysis.com/stocks/msft/forecast, accessed 2026-09-06"
+},
+"Recent news sentiment (last 30 days)": {
+"value": "Mixed: strong AI/Azure growth but stock sliding on capex concerns",
+"score": 5,
+"source": "Foreign Policy Journal, ad-hoc-news.de, accessed 2026-09-06"
+},
+"Short interest (% of float)": {
+"value": "0.92% of float",
+"score": 10,
+"source": "fintel.io/ss/us/msft, accessed 2026-09-06"
+},
+"Insider buying/selling activity (last 90 days)": {
+"value": "Significant net insider selling: CEO Nadella sold $43.4M in stock",
+"score": 3,
+"source": "Benzinga, Pluang, accessed 2026-09-06"
+}
+},
+"techScore": 6.8,
+"fundScore": 8.6,
+"sentScore": 6.8,
+"overall": 7.4,
+"decision": "BUY",
+"notes": "Large 3-month move appears driven by strong earnings/AI-related momentum."
+},
+{
+"ticker": "AMZN",
+"company": "Amazon.com Inc",
+"technical": {
+"Price vs 50-day MA": {
+"value": "+0.14% ($258.51 vs $258.16)",
+"score": 6,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Price vs 200-day MA": {
+"value": "-1.5% ($258.51 vs $262.40)",
+"score": 5,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"RSI (14-day)": {
+"value": "54.6",
+"score": 5,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Relative performance vs S&P 500 (3-month)": {
+"value": "AMZN +11.1% vs S&P 500 ~+1-2% -> outperform ~9-10pp",
+"score": 7,
+"source": "StockAnalysis.com; FRED S&P 500, accessed 2026-09-06"
+},
+"Volatility / Beta": {
+"value": "1.44",
+"score": 5,
+"source": "StockAnalysis.com, accessed 2026-09-06"
+}
+},
+"fundamental": {
+"P/E ratio vs sector average": {
+"value": "Trailing P/E 20.79 vs sector avg ~30 (roughly 30% below)",
+"score": 8,
+"source": "stockanalysis.com/stocks/amzn/statistics, accessed 2026-09-06"
+},
+"Revenue growth (YoY, most recent quarter or TTM)": {
+"value": "TTM revenue growth +15.8% YoY",
+"score": 8,
+"source": "stockanalysis.com/stocks/amzn/financials, accessed 2026-09-06"
+},
+"Earnings growth (YoY)": {
+"value": "TTM EPS/net income growth +89.7% YoY",
+"score": 10,
+"source": "stockanalysis.com/stocks/amzn/financials, accessed 2026-09-06"
+},
+"Profit margin (operating margin, most recent)": {
+"value": "Operating margin 12.1%",
+"score": 5,
+"source": "stockanalysis.com/stocks/amzn/statistics, accessed 2026-09-06"
+},
+"Debt-to-equity ratio": {
+"value": "D/E 0.46",
+"score": 7,
+"source": "stockanalysis.com/stocks/amzn/statistics, accessed 2026-09-06"
+}
+},
+"sentiment": {
+"Analyst consensus rating": {
+"value": "Strong Buy - 61 analysts: 44 Strong Buy, 15 Buy, 2 Hold; avg PT $328.17 (+27.0% upside)",
+"score": 10,
+"source": "stockanalysis.com/stocks/amzn/forecast, accessed 2026-09-06"
+},
+"Recent analyst rating changes (last 30 days)": {
+"value": "Stable to slightly softer, still strongly bullish",
+"score": 7,
+"source": "stockanalysis.com/stocks/amzn/forecast, accessed 2026-09-06"
+},
+"Recent news sentiment (last 30 days)": {
+"value": "Positive: AWS surge, eyeing $3T valuation on AI/AWS growth",
+"score": 8,
+"source": "TradingPedia, Yahoo Finance, accessed 2026-09-06"
+},
+"Short interest (% of float)": {
+"value": "0.95% of float",
+"score": 10,
+"source": "fintel.io/ss/us/amzn, accessed 2026-09-06"
+},
+"Insider buying/selling activity (last 90 days)": {
+"value": "Notable net insider selling: CEO Jassy sold shares multiple times, ~$15M+ total insider dumps",
+"score": 3,
+"source": "Investing.com, MarketScreener, Yahoo Finance, accessed 2026-09-06"
+}
+},
+"techScore": 5.6,
+"fundScore": 7.6,
+"sentScore": 7.6,
+"overall": 6.93,
+"decision": "HOLD",
+"notes": ""
+},
+{
+"ticker": "TSM",
+"company": "Taiwan Semiconductor Mfg (ADR)",
+"technical": {
+"Price vs 50-day MA": {
+"value": "+2.3% ($428.91 vs $419.10)",
+"score": 7,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Price vs 200-day MA": {
+"value": "+3.1% ($428.91 vs $416.15)",
+"score": 6,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"RSI (14-day)": {
+"value": "70.9",
+"score": 2,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Relative performance vs S&P 500 (3-month)": {
+"value": "TSM -0.8% vs S&P 500 ~+1-2% -> slight underperform",
+"score": 5,
+"source": "StockAnalysis.com; FRED S&P 500, accessed 2026-09-06"
+},
+"Volatility / Beta": {
+"value": "1.26",
+"score": 5,
+"source": "StockAnalysis.com, accessed 2026-09-06"
+}
+},
+"fundamental": {
+"P/E ratio vs sector average": {
+"value": "Trailing P/E 28.35 vs sector avg ~30-35 (roughly in-line to slightly below)",
+"score": 6,
+"source": "stockanalysis.com/stocks/tsm/statistics, accessed 2026-09-06"
+},
+"Revenue growth (YoY, most recent quarter or TTM)": {
+"value": "Q2 2026 revenue growth +36.1% YoY",
+"score": 10,
+"source": "stockanalysis.com/stocks/tsm/financials, accessed 2026-09-06"
+},
+"Earnings growth (YoY)": {
+"value": "Q2 2026 EPS growth +77.4% YoY",
+"score": 10,
+"source": "stockanalysis.com/stocks/tsm/financials, accessed 2026-09-06"
+},
+"Profit margin (operating margin, most recent)": {
+"value": "Operating margin 56.1%",
+"score": 10,
+"source": "stockanalysis.com/stocks/tsm/statistics, accessed 2026-09-06"
+},
+"Debt-to-equity ratio": {
+"value": "D/E 0.17",
+"score": 10,
+"source": "stockanalysis.com/stocks/tsm/statistics, accessed 2026-09-06"
+}
+},
+"sentiment": {
+"Analyst consensus rating": {
+"value": "Strong Buy - 19 analysts: 12 Strong Buy, 6 Buy, 1 Hold; avg PT $554.45 (+29.3% upside)",
+"score": 10,
+"source": "stockanalysis.com/stocks/tsm/forecast, accessed 2026-09-06"
+},
+"Recent analyst rating changes (last 30 days)": {
+"value": "Positive: Stifel initiated Buy, BofA maintained Buy, strong analyst sentiment",
+"score": 8,
+"source": "stockanalysis.com; Yahoo Finance, accessed 2026-09-06"
+},
+"Recent news sentiment (last 30 days)": {
+"value": "Positive: strong AI demand driving 2026 capex, some geopolitical risk headlines",
+"score": 7,
+"source": "Yahoo Finance, Benzinga, accessed 2026-09-06"
+},
+"Short interest (% of float)": {
+"value": "0.62% of float (declining trend)",
+"score": 10,
+"source": "Benzinga short interest data, accessed 2026-09-06"
+},
+"Insider buying/selling activity (last 90 days)": {
+"value": "Notable net insider buying: multiple SVP/VP acquisitions reported",
+"score": 7,
+"source": "StockTitan SEC Form 4 filings, accessed 2026-09-06"
+}
+},
+"techScore": 5.0,
+"fundScore": 9.2,
+"sentScore": 8.4,
+"overall": 7.53,
+"decision": "BUY",
+"notes": "RSI 70.9 signals overbought conditions despite constructive trend indicators."
+},
+{
+"ticker": "SPCX",
+"company": "Space Exploration Technologies Cl A",
+"technical": {
+"Price vs 50-day MA": {
+"value": "+3.0% ($147.95 vs $143.69)",
+"score": 7,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Price vs 200-day MA": {
+"value": null,
+"score": null,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06 -- insufficient trading history for a genuine 200-day MA"
+},
+"RSI (14-day)": {
+"value": "56.7",
+"score": 5,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Relative performance vs S&P 500 (3-month)": {
+"value": "SPCX -3.4% vs S&P 500 ~+1-2% -> underperform, within -5% band",
+"score": 5,
+"source": "StockAnalysis.com; FRED S&P 500, accessed 2026-09-06"
+},
+"Volatility / Beta": {
+"value": null,
+"score": null,
+"source": "StockAnalysis.com, accessed 2026-09-06 -- beta not yet available"
+}
+},
+"fundamental": {
+"P/E ratio vs sector average": {
+"value": null,
+"score": null,
+"source": null
+},
+"Revenue growth (YoY, most recent quarter or TTM)": {
+"value": null,
+"score": null,
+"source": null
+},
+"Earnings growth (YoY)": {
+"value": null,
+"score": null,
+"source": null
+},
+"Profit margin (operating margin, most recent)": {
+"value": null,
+"score": null,
+"source": null
+},
+"Debt-to-equity ratio": {
+"value": null,
+"score": null,
+"source": null
+}
+},
+"sentiment": {
+"Analyst consensus rating": {
+"value": "Moderate Buy/Buy - mixed reports; MarketBeat: 2 Strong Buy/25 Buy/8 Hold/7 Sell across 42 reports; stockanalysis.com: 8 analysts all Buy, avg target ~$244",
+"score": 6,
+"source": "marketbeat.com; stockanalysis.com/stocks/spcx/ratings, accessed 2026-09-06"
+},
+"Recent analyst rating changes (last 30 days)": {
+"value": "Positive price-target raises: Oppenheimer $250->$280, Bernstein $239->$248",
+"score": 7,
+"source": "stockanalysis.com/stocks/spcx/ratings, accessed 2026-09-06"
+},
+"Recent news sentiment (last 30 days)": {
+"value": "Mixed/volatile: heavy short-seller battle, Musk warned shorts, stock rebounded ~40% off low; MarketBeat sentiment score below sector avg",
+"score": 5,
+"source": "CNBC, Invezz, MarketBeat, accessed 2026-09-06"
+},
+"Short interest (% of float)": {
+"value": "Conflicting reports: MarketBeat ~1.41%, but S3 Partners/Yahoo Finance cite 32-45% of float shorted amid a ~$25B short bet post-IPO",
+"score": 1,
+"source": "S3 Partners via CNBC/Yahoo Finance, Invezz, MarketBeat, accessed 2026-09-06 -- wide variance across sources"
+},
+"Insider buying/selling activity (last 90 days)": {
+"value": "MarketBeat: no open-market insider trades in 3 months; Form 4s show large IPO-related preferred-to-common conversions for Musk plus one ~$1.2M open-market sale",
+"score": 5,
+"source": "MarketBeat; StockTitan Form 4, accessed 2026-09-06"
+}
+},
+"techScore": 5.5,
+"fundScore": null,
+"sentScore": 4.8,
+"overall": 5.15,
+"decision": "NO ACTION",
+"notes": "SpaceX (Space Exploration Technologies Corp) IPO'd on NASDAQ June 12, 2026, so it is now genuinely publicly traded (ticker SPCX) rather than private as the framework assumed. Only ~3 months of trading history exists, so a true 200-day MA and reliable beta are not yet available -- nulled rather than guessed."
+},
+{
+"ticker": "AVGO",
+"company": "Broadcom Inc",
+"technical": {
+"Price vs 50-day MA": {
+"value": "-1.8% ($357.90 vs $364.45)",
+"score": 5,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Price vs 200-day MA": {
+"value": "-7.1% ($357.90 vs $385.43)",
+"score": 3,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"RSI (14-day)": {
+"value": "47.2",
+"score": 5,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Relative performance vs S&P 500 (3-month)": {
+"value": "AVGO -1.95% vs S&P 500 ~+1-2% -> underperform, within -5% band",
+"score": 5,
+"source": "StockAnalysis.com; FRED S&P 500, accessed 2026-09-06"
+},
+"Volatility / Beta": {
+"value": "1.46",
+"score": 5,
+"source": "StockAnalysis.com, accessed 2026-09-06"
+}
+},
+"fundamental": {
+"P/E ratio vs sector average": {
+"value": "Trailing P/E 45.68 vs sector avg ~30-35 (roughly 30-50% above)",
+"score": 3,
+"source": "stockanalysis.com/stocks/avgo/statistics, accessed 2026-09-06"
+},
+"Revenue growth (YoY, most recent quarter or TTM)": {
+"value": "Q3 2026 revenue growth +85.5% YoY",
+"score": 10,
+"source": "stockanalysis.com/stocks/avgo/financials, accessed 2026-09-06"
+},
+"Earnings growth (YoY)": {
+"value": "Q3 2026 EPS growth +215.3% YoY",
+"score": 10,
+"source": "stockanalysis.com/stocks/avgo/financials, accessed 2026-09-06"
+},
+"Profit margin (operating margin, most recent)": {
+"value": "Operating margin 48.6%",
+"score": 10,
+"source": "stockanalysis.com/stocks/avgo/statistics, accessed 2026-09-06"
+},
+"Debt-to-equity ratio": {
+"value": "D/E 0.60",
+"score": 7,
+"source": "stockanalysis.com/stocks/avgo/statistics, accessed 2026-09-06"
+}
+},
+"sentiment": {
+"Analyst consensus rating": {
+"value": "Strong Buy - 49 analysts: 37 Strong Buy, 8 Buy, 4 Hold; avg PT $533.41 (+49.0% upside)",
+"score": 10,
+"source": "stockanalysis.com/stocks/avgo/forecast, accessed 2026-09-06"
+},
+"Recent analyst rating changes (last 30 days)": {
+"value": "Positive price-target raises: Citi, Cantor Fitzgerald, Raymond James all raised targets, maintaining Buy",
+"score": 8,
+"source": "stockanalysis.com/stocks/avgo/forecast, accessed 2026-09-06"
+},
+"Recent news sentiment (last 30 days)": {
+"value": "Mixed: stock down ~19% since Q4 2025 results per one report, but bullish long-term AI-chip narrative persists",
+"score": 5,
+"source": "Yahoo Finance, CNBC, accessed 2026-09-06"
+},
+"Short interest (% of float)": {
+"value": "1.20% of float",
+"score": 10,
+"source": "fintel.io/ss/us/avgo, accessed 2026-09-06"
+},
+"Insider buying/selling activity (last 90 days)": {
+"value": "Significant net insider selling: CEO Hock Tan sold $42.3M worth of shares",
+"score": 3,
+"source": "iTiger, TheStreet, Yahoo Finance, accessed 2026-09-06"
+}
+},
+"techScore": 4.6,
+"fundScore": 8.0,
+"sentScore": 7.2,
+"overall": 6.6,
+"decision": "HOLD",
+"notes": ""
+},
+{
+"ticker": "META",
+"company": "Meta Platforms Inc",
+"technical": {
+"Price vs 50-day MA": {
+"value": "+4.9% ($616.77 vs $588.21)",
+"score": 7,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Price vs 200-day MA": {
+"value": "+6.7% ($616.77 vs $577.83)",
+"score": 7,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"RSI (14-day)": {
+"value": "67",
+"score": 3,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Relative performance vs S&P 500 (3-month)": {
+"value": "META +12.1% vs S&P 500 ~+1-2% -> outperform ~10-11pp",
+"score": 7,
+"source": "StockAnalysis.com; FRED S&P 500, accessed 2026-09-06"
+},
+"Volatility / Beta": {
+"value": "1.24",
+"score": 5,
+"source": "StockAnalysis.com, accessed 2026-09-06"
+}
+},
+"fundamental": {
+"P/E ratio vs sector average": {
+"value": "Trailing P/E 23.24 vs sector avg ~30 (roughly 20-25% below)",
+"score": 8,
+"source": "stockanalysis.com/stocks/meta/statistics, accessed 2026-09-06"
+},
+"Revenue growth (YoY, most recent quarter or TTM)": {
+"value": "Q2 2026 revenue growth +28.0% YoY",
+"score": 9,
+"source": "stockanalysis.com/stocks/meta/financials, accessed 2026-09-06"
+},
+"Earnings growth (YoY)": {
+"value": "Q2 2026 net income/EPS declined -13.4% YoY",
+"score": 1,
+"source": "stockanalysis.com/stocks/meta/financials, accessed 2026-09-06"
+},
+"Profit margin (operating margin, most recent)": {
+"value": "Operating margin 38.1%",
+"score": 10,
+"source": "stockanalysis.com/stocks/meta/statistics, accessed 2026-09-06"
+},
+"Debt-to-equity ratio": {
+"value": "D/E 0.43",
+"score": 7,
+"source": "stockanalysis.com/stocks/meta/statistics, accessed 2026-09-06"
+}
+},
+"sentiment": {
+"Analyst consensus rating": {
+"value": "Strong Buy - 62 analysts: 47 Strong Buy, 8 Buy, 7 Hold; avg PT $754.77 (+22.4% upside)",
+"score": 10,
+"source": "stockanalysis.com/stocks/meta/forecast, accessed 2026-09-06"
+},
+"Recent analyst rating changes (last 30 days)": {
+"value": "Stable, mostly reiterations from BofA, Goldman Sachs, Wedbush",
+"score": 6,
+"source": "stockanalysis.com/stocks/meta/forecast, accessed 2026-09-06"
+},
+"Recent news sentiment (last 30 days)": {
+"value": "Mixed: pressured by high AI capex concerns, some bullish catalysts noted",
+"score": 5,
+"source": "Morningstar, Fortune, 247wallst.com, accessed 2026-09-06"
+},
+"Short interest (% of float)": {
+"value": "1.27% of float",
+"score": 10,
+"source": "fintel.io/ss/us/meta, accessed 2026-09-06"
+},
+"Insider buying/selling activity (last 90 days)": {
+"value": "Notable net insider selling: ~$48M of shares sold suggesting hesitancy",
+"score": 3,
+"source": "Yahoo Finance (Simply Wall St), StockTitan, accessed 2026-09-06"
+}
+},
+"techScore": 5.8,
+"fundScore": 7.0,
+"sentScore": 6.8,
+"overall": 6.53,
+"decision": "HOLD",
+"notes": "Q2 2026 earnings decline YoY attributed to a one-time regulatory/tax charge per Meta; verify against non-GAAP figures."
+},
+{
+"ticker": "TSLA",
+"company": "Tesla Inc",
+"technical": {
+"Price vs 50-day MA": {
+"value": "-1.25% ($354.08 vs $358.55)",
+"score": 5,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Price vs 200-day MA": {
+"value": "+4.6% ($354.08 vs $338.58)",
+"score": 6,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"RSI (14-day)": {
+"value": "42.1",
+"score": 6,
+"source": "Investing.com Technical Analysis, accessed 2026-09-06"
+},
+"Relative performance vs S&P 500 (3-month)": {
+"value": "TSLA -6.75% vs S&P 500 ~+1-2% -> underperform ~8pp",
+"score": 3,
+"source": "StockAnalysis.com; FRED S&P 500, accessed 2026-09-06"
+},
+"Volatility / Beta": {
+"value": "1.84",
+"score": 3,
+"source": "StockAnalysis.com, accessed 2026-09-06"
+}
+},
+"fundamental": {
+"P/E ratio vs sector average": {
+"value": "Trailing P/E 367.43 vs sector avg ~20-30 (far more than 50% above)",
+"score": 0,
+"source": "stockanalysis.com/stocks/tsla/statistics, accessed 2026-09-06"
+},
+"Revenue growth (YoY, most recent quarter or TTM)": {
+"value": "Q2 2026 revenue growth +25.5% YoY",
+"score": 9,
+"source": "stockanalysis.com/stocks/tsla/financials, accessed 2026-09-06"
+},
+"Earnings growth (YoY)": {
+"value": "Q2 2026 net income declined -3.0% YoY",
+"score": 1,
+"source": "stockanalysis.com/stocks/tsla/financials, accessed 2026-09-06"
+},
+"Profit margin (operating margin, most recent)": {
+"value": "Operating margin 4.13%",
+"score": 2,
+"source": "stockanalysis.com/stocks/tsla/statistics, accessed 2026-09-06"
+},
+"Debt-to-equity ratio": {
+"value": "D/E 0.18",
+"score": 10,
+"source": "stockanalysis.com/stocks/tsla/statistics, accessed 2026-09-06"
+}
+},
+"sentiment": {
+"Analyst consensus rating": {
+"value": "Buy - 46 analysts: 16 Strong Buy, 6 Buy, 19 Hold, 2 Sell, 3 Strong Sell; avg PT $390.09 (+10.2% upside)",
+"score": 7,
+"source": "stockanalysis.com/stocks/tsla/forecast, accessed 2026-09-06"
+},
+"Recent analyst rating changes (last 30 days)": {
+"value": "Slight net negative drift, mixed recent calls (JPMorgan Hold, RBC Buy, GLJ Sell)",
+"score": 5,
+"source": "stockanalysis.com/stocks/tsla/forecast, accessed 2026-09-06"
+},
+"Recent news sentiment (last 30 days)": {
+"value": "Mixed: strong Q3 delivery expectations vs Musk pay-package controversy and Cybertruck litigation",
+"score": 6,
+"source": "Yahoo Finance, Gulf News, Quartz, accessed 2026-09-06"
+},
+"Short interest (% of float)": {
+"value": "2.29% of float",
+"score": 7,
+"source": "fintel.io/ss/us/tsla, accessed 2026-09-06"
+},
+"Insider buying/selling activity (last 90 days)": {
+"value": "Notable net insider selling: reports of ~$300M in planned sales",
+"score": 3,
+"source": "TipRanks, accessed 2026-09-06"
+}
+},
+"techScore": 4.6,
+"fundScore": 4.4,
+"sentScore": 5.6,
+"overall": 4.87,
+"decision": "HOLD",
+"notes": "Stock fell sharply on the most recent trading day, possibly reflecting a specific news event not captured here."
+}
+];
+
+const decisionClass = { BUY: 'buy', HOLD: 'hold', SELL: 'sell', 'NO ACTION': 'noact' };
+const decisionColorVar = { BUY: '--buy', HOLD: '--hold', SELL: '--sell', 'NO ACTION': '--noact' };
+
+function fmtScore(v) {
+  return (v === null || v === undefined) ? 'N/A' : v.toFixed(1);
+}
+
+function renderSummary() {
+  const counts = { BUY: 0, HOLD: 0, SELL: 0, 'NO ACTION': 0 };
+  DATA.forEach(d => counts[d.decision]++);
+  const el = document.getElementById('summary');
+  const order = [['BUY','buy'],['HOLD','hold'],['SELL','sell'],['NO ACTION','noact']];
+  el.innerHTML = order.map(([key, cls]) =>
+    `<div class="stat ${cls}"><div class="count">${counts[key]}</div><div class="label">${key}</div></div>`
+  ).join('');
+}
+
+function paramBlock(title, params) {
+  const entries = Object.entries(params);
+  const scored = entries.filter(([,p]) => p.score !== null && p.score !== undefined);
+  const avg = scored.length ? (scored.reduce((s,[,p]) => s + p.score, 0) / scored.length).toFixed(1) : 'N/A';
+  const items = entries.map(([name, p]) => {
+    const isNull = p.score === null || p.score === undefined;
+    return `<div class="param ${isNull ? 'null' : ''}">
+      <div class="param-top">
+        <span class="param-name">${name}</span>
+        <span class="param-score">${isNull ? '—' : p.score.toFixed(0) + '/10'}</span>
+      </div>
+      <div class="param-value">${p.value === null || p.value === undefined ? 'Not available' : p.value}</div>
+      ${p.source ? `<div class="param-source">${p.source}</div>` : ''}
+    </div>`;
+  }).join('');
+  return `<div class="detail-cat">
+    <h4><span>${title}</span><span>${avg}${avg !== 'N/A' ? '/10' : ''}</span></h4>
+    ${items}
+  </div>`;
+}
+
+function renderRows() {
+  const el = document.getElementById('rows');
+  el.innerHTML = DATA.map((d, i) => {
+    const cls = decisionClass[d.decision];
+    const barPct = d.overall !== null ? Math.max(4, (d.overall / 10) * 100) : 0;
+    const barColor = `var(${decisionColorVar[d.decision]})`;
+    return `<div class="row" id="row-${i}">
+      <div class="row-main" role="button" tabindex="0" aria-expanded="false" data-idx="${i}">
+        <span class="ticker">${d.ticker}</span>
+        <span class="company">${d.company}</span>
+        <span class="cat-score ${d.techScore === null ? 'na' : ''}">${fmtScore(d.techScore)}</span>
+        <span class="cat-score ${d.fundScore === null ? 'na' : ''}">${fmtScore(d.fundScore)}</span>
+        <span class="cat-score ${d.sentScore === null ? 'na' : ''}">${fmtScore(d.sentScore)}</span>
+        <span class="overall-cell">
+          <span class="overall-num">${fmtScore(d.overall)}</span>
+          <span class="overall-bar-track"><span class="overall-bar-fill" style="width:${barPct}%; background:${barColor}"></span></span>
+        </span>
+        <span class="pill-wrap"><span class="pill ${cls}">${d.decision}<span class="chevron">▸</span></span></span>
+      </div>
+      <div class="detail">
+        <div class="detail-grid">
+          ${paramBlock('Technical', d.technical)}
+          ${paramBlock('Fundamental', d.fundamental)}
+          ${paramBlock('Sentiment', d.sentiment)}
+        </div>
+        ${d.notes ? `<div class="row-note"><strong>Note:</strong> ${d.notes}</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+
+  el.querySelectorAll('.row-main').forEach(rm => {
+    const toggle = () => {
+      const row = rm.closest('.row');
+      const open = row.classList.toggle('open');
+      rm.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    rm.addEventListener('click', toggle);
+    rm.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+}
+
+function initTheme() {
+  const btn = document.getElementById('themeToggle');
+  const root = document.documentElement;
+  btn.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme');
+    if (current === 'dark') { root.setAttribute('data-theme', 'light'); }
+    else if (current === 'light') { root.removeAttribute('data-theme'); }
+    else { root.setAttribute('data-theme', 'dark'); }
+  });
+}
+
+document.getElementById('reviewDate').textContent = '2026-09-06';
+document.getElementById('genCount').textContent = DATA.length + ' positions analyzed';
+renderSummary();
+renderRows();
+initTheme();
+</script>
