@@ -1,0 +1,117 @@
+{
+  "generated_by": "agent_1_framework",
+  "generated_at": "2026-09-06T00:00:00-07:00",
+  "stocks": [
+    {"ticker": "NVDA", "company": "Nvidia Corp", "state": "No Position"},
+    {"ticker": "AAPL", "company": "Apple Inc", "state": "No Position"},
+    {"ticker": "GOOGL", "company": "Alphabet Inc Class A", "state": "No Position"},
+    {"ticker": "MSFT", "company": "Microsoft Corp", "state": "No Position"},
+    {"ticker": "AMZN", "company": "Amazon.com Inc", "state": "No Position"},
+    {"ticker": "TSM", "company": "Taiwan Semiconductor Mfg (ADR)", "state": "No Position"},
+    {"ticker": "SPCX", "company": "Space Exploration Technologies Cl A", "state": "No Position"},
+    {"ticker": "AVGO", "company": "Broadcom Inc", "state": "No Position"},
+    {"ticker": "META", "company": "Meta Platforms Inc", "state": "No Position"},
+    {"ticker": "TSLA", "company": "Tesla Inc", "state": "No Position"}
+  ],
+  "research_mode": "internet_search",
+  "api_details": null,
+  "parameters": {
+    "technical": [
+      {
+        "name": "Price vs 50-day MA",
+        "description": "Current price relative to the 50-day simple moving average, as a percent.",
+        "rubric": "0-10 scale centered on trend strength: <-15% -> 0-1 (strong downtrend), -15% to -5% -> 2-3 (downtrend), -5% to +2% -> 4-6 (neutral/consolidating, 5 at 0%), +2% to +10% -> 7-8 (uptrend), >+10% -> 9-10 (strong uptrend). Score scales linearly within each band."
+      },
+      {
+        "name": "Price vs 200-day MA",
+        "description": "Current price relative to the 200-day simple moving average, as a percent.",
+        "rubric": "Same shape as the 50-day rubric but reflects the longer-term trend: <-20% -> 0-1, -20% to -5% -> 2-3, -5% to +5% -> 4-6 (5 at 0%), +5% to +20% -> 7-8, >+20% -> 9-10."
+      },
+      {
+        "name": "RSI (14-day)",
+        "description": "14-day Relative Strength Index.",
+        "rubric": "RSI < 30 -> 8-10 (oversold, potential opportunity, lower RSI = higher score), RSI 30-45 -> 6-7, RSI 45-55 -> 5 (neutral), RSI 55-70 -> 3-4, RSI > 70 -> 0-2 (overbought, higher RSI = lower score)."
+      },
+      {
+        "name": "Relative performance vs S&P 500 (3-month)",
+        "description": "Stock's total return over the trailing 3 months minus the S&P 500's total return over the same period.",
+        "rubric": "Underperform by >15% -> 0-1, underperform 5-15% -> 2-4, within +/-5% -> 5-6, outperform 5-15% -> 7-8, outperform >15% -> 9-10."
+      },
+      {
+        "name": "Volatility / Beta",
+        "description": "5-year beta vs S&P 500.",
+        "rubric": "This parameter scores stability, not opportunity: beta 0.8-1.2 -> 7-8 (moderate, stable), beta 1.2-1.6 or 0.5-0.8 -> 5-6, beta >1.6 or <0.5 -> 3-4 (higher risk/uncertainty either direction). Used as a risk-context parameter, not a bullish/bearish signal."
+      }
+    ],
+    "fundamental": [
+      {
+        "name": "P/E ratio vs sector average",
+        "description": "Trailing P/E ratio compared to the stock's sector/industry average P/E.",
+        "rubric": "P/E > 50% above sector avg -> 0-2 (expensive), 20-50% above -> 3-4, within +/-20% -> 5-7 (fairly valued), 20-40% below -> 8-9, >40% below sector avg (and profitable) -> 10. If P/E is negative/not meaningful, mark null and note why."
+      },
+      {
+        "name": "Revenue growth (YoY, most recent quarter or TTM)",
+        "description": "Most recently reported year-over-year revenue growth rate.",
+        "rubric": "<0% -> 0-2, 0-5% -> 3-4, 5-12% -> 5-6, 12-25% -> 7-8, >25% -> 9-10."
+      },
+      {
+        "name": "Earnings growth (YoY)",
+        "description": "Most recently reported year-over-year EPS or net income growth rate.",
+        "rubric": "Negative/declining -> 0-2, 0-8% -> 3-4, 8-15% -> 5-6, 15-30% -> 7-8, >30% -> 9-10. If earnings are negative both periods (still unprofitable), mark null and note why."
+      },
+      {
+        "name": "Profit margin (operating margin, most recent)",
+        "description": "Most recently reported operating margin.",
+        "rubric": "<0% -> 0-1, 0-10% -> 2-4, 10-20% -> 5-6, 20-35% -> 7-8, >35% -> 9-10."
+      },
+      {
+        "name": "Debt-to-equity ratio",
+        "description": "Most recently reported total debt-to-equity ratio.",
+        "rubric": "D/E > 2.0 -> 0-2 (high leverage), 1.0-2.0 -> 3-5, 0.4-1.0 -> 6-7, <0.4 -> 8-10 (low leverage). Context-adjust only if the framework notes a capital-intensive sector norm; otherwise apply as-is."
+      }
+    ],
+    "sentiment": [
+      {
+        "name": "Analyst consensus rating",
+        "description": "Current Wall Street analyst consensus rating and approximate number of analysts covering.",
+        "rubric": "Consensus Sell/Underperform -> 0-2, Hold -> 4-5, Moderate Buy -> 6-7, Buy -> 8-9, Strong Buy (broad coverage, high conviction) -> 10."
+      },
+      {
+        "name": "Recent analyst rating changes (last 30 days)",
+        "description": "Net direction of analyst rating/price-target changes in the last 30 days.",
+        "rubric": "Multiple downgrades/net negative revisions -> 0-2, mixed/no significant activity -> 4-6, net upgrades or price-target raises -> 7-8, multiple upgrades/strong positive revisions -> 9-10."
+      },
+      {
+        "name": "Recent news sentiment (last 30 days)",
+        "description": "Overall tone of major news coverage in the last 30 days (product launches, litigation, management changes, macro exposure, etc.).",
+        "rubric": "Predominantly negative (scandal, guidance cuts, litigation risk) -> 0-2, mixed/neutral -> 4-6, predominantly positive (strong product/business news) -> 7-8, major positive catalyst dominating coverage -> 9-10."
+      },
+      {
+        "name": "Short interest (% of float)",
+        "description": "Most recently reported short interest as a percent of float.",
+        "rubric": "This parameter scores bearish positioning: >10% of float -> 0-2 (heavy bearish bets), 5-10% -> 3-5, 2-5% -> 6-7, <2% -> 8-10 (low bearish positioning)."
+      },
+      {
+        "name": "Insider buying/selling activity (last 90 days)",
+        "description": "Net direction of insider (Form 4) transactions in the last 90 days.",
+        "rubric": "Significant net insider selling (multiple execs) -> 0-3, routine/mixed activity or no notable transactions -> 4-6, notable net insider buying -> 7-10."
+      }
+    ]
+  },
+  "weights": {
+    "technical": 0.3333,
+    "fundamental": 0.3333,
+    "sentiment": 0.3334
+  },
+  "decision_thresholds": {
+    "buy": 7,
+    "hold_min": 4,
+    "sell_below": 4
+  },
+  "no_action_rule": "If any single category has 2 or more null/unresolvable parameters for a stock, or an entire category's output is missing for that stock, the decision is NO ACTION regardless of computed score.",
+  "notes": [
+    "SPCX (SpaceX) is privately held / not a traditional publicly-traded equity as of this framework's creation; Agents 2-4 should verify current tradability status and flag heavily-null categories accordingly rather than fabricating market data.",
+    "Weights and thresholds are configurable here without touching any agent's logic.",
+    "All research agents must cite a source (URL/provider + access date, or filing reference) per parameter value; null values must include a one-line reason."
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "category": "fundamental",
+  "generated_at": "2026-09-06T00:00:00Z",
+  "stocks": {
+    "NVDA": {
+      "parameters": {
+        "P/E ratio vs sector average": {"value": "Trailing P/E 29.13 vs sector avg ~30-35 (roughly in-line to slightly below)", "score": 6, "source": "stockanalysis.com/stocks/nvda/statistics, accessed 2026-09-06"},
+        "Revenue growth (YoY, most recent quarter or TTM)": {"value": "TTM revenue growth +83.4% YoY", "score": 10, "source": "stockanalysis.com/stocks/nvda/financials, accessed 2026-09-06"},
+        "Earnings growth (YoY)": {"value": "TTM EPS growth +125.3% YoY", "score": 10, "source": "stockanalysis.com/stocks/nvda/financials, accessed 2026-09-06"},
+        "Profit margin (operating margin, most recent)": {"value": "Operating margin 65.2%", "score": 10, "source": "stockanalysis.com/stocks/nvda/statistics, accessed 2026-09-06"},
+        "Debt-to-equity ratio": {"value": "D/E 0.17", "score": 10, "source": "stockanalysis.com/stocks/nvda/statistics, accessed 2026-09-06"}
+      },
+      "category_score": 9.2,
+      "notes": ""
+    },
+    "AAPL": {
+      "parameters": {
+        "P/E ratio vs sector average": {"value": "Trailing P/E 36.71 vs sector avg ~30 (roughly 20% above)", "score": 4, "source": "stockanalysis.com; gurufocus.com, accessed 2026-09-06"},
+        "Revenue growth (YoY, most recent quarter or TTM)": {"value": "TTM revenue growth +14.2% YoY", "score": 7, "source": "stockanalysis.com/stocks/aapl/financials, accessed 2026-09-06"},
+        "Earnings growth (YoY)": {"value": "TTM EPS growth +32.6% YoY", "score": 9, "source": "stockanalysis.com/stocks/aapl/financials, accessed 2026-09-06"},
+        "Profit margin (operating margin, most recent)": {"value": "Operating margin 33.2%", "score": 7, "source": "stockanalysis.com/stocks/aapl/statistics, accessed 2026-09-06"},
+        "Debt-to-equity ratio": {"value": "D/E 0.78", "score": 6, "source": "stockanalysis.com/stocks/aapl/statistics, accessed 2026-09-06"}
+      },
+      "category_score": 6.6,
+      "notes": ""
+    },
+    "GOOGL": {
+      "parameters": {
+        "P/E ratio vs sector average": {"value": "Trailing P/E 16.98 vs sector avg ~30 (40%+ below, profitable)", "score": 10, "source": "stockanalysis.com/stocks/googl/statistics, accessed 2026-09-06"},
+        "Revenue growth (YoY, most recent quarter or TTM)": {"value": "TTM revenue growth +20.1% YoY", "score": 8, "source": "stockanalysis.com/stocks/googl/financials, accessed 2026-09-06"},
+        "Earnings growth (YoY)": {"value": "TTM EPS growth +112.5% YoY", "score": 10, "source": "stockanalysis.com/stocks/googl/financials, accessed 2026-09-06"},
+        "Profit margin (operating margin, most recent)": {"value": "Operating margin 33.1%", "score": 7, "source": "stockanalysis.com/stocks/googl/statistics, accessed 2026-09-06"},
+        "Debt-to-equity ratio": {"value": "D/E 0.19", "score": 10, "source": "stockanalysis.com/stocks/googl/statistics, accessed 2026-09-06"}
+      },
+      "category_score": 9.0,
+      "notes": ""
+    },
+    "MSFT": {
+      "parameters": {
+        "P/E ratio vs sector average": {"value": "Trailing P/E 27.84 vs sector avg ~30 (within +/-20%)", "score": 6, "source": "stockanalysis.com/stocks/msft/statistics, accessed 2026-09-06"},
+        "Revenue growth (YoY, most recent quarter or TTM)": {"value": "FY2026 revenue growth +17.8% YoY", "score": 8, "source": "stockanalysis.com/stocks/msft/financials, accessed 2026-09-06"},
+        "Earnings growth (YoY)": {"value": "FY2026 net income growth ~+31.3% YoY", "score": 9, "source": "stockanalysis.com/stocks/msft/financials, accessed 2026-09-06"},
+        "Profit margin (operating margin, most recent)": {"value": "Operating margin 46.8%", "score": 10, "source": "stockanalysis.com/stocks/msft/statistics, accessed 2026-09-06"},
+        "Debt-to-equity ratio": {"value": "D/E 0.29", "score": 10, "source": "stockanalysis.com/stocks/msft/statistics, accessed 2026-09-06"}
+      },
+      "category_score": 8.6,
+      "notes": ""
+    },
+    "AMZN": {
+      "parameters": {
+        "P/E ratio vs sector average": {"value": "Trailing P/E 20.79 vs sector avg ~30 (roughly 30% below)", "score": 8, "source": "stockanalysis.com/stocks/amzn/statistics, accessed 2026-09-06"},
+        "Revenue growth (YoY, most recent quarter or TTM)": {"value": "TTM revenue growth +15.8% YoY", "score": 8, "source": "stockanalysis.com/stocks/amzn/financials, accessed 2026-09-06"},
+        "Earnings growth (YoY)": {"value": "TTM EPS/net income growth +89.7% YoY", "score": 10, "source": "stockanalysis.com/stocks/amzn/financials, accessed 2026-09-06"},
+        "Profit margin (operating margin, most recent)": {"value": "Operating margin 12.1%", "score": 5, "source": "stockanalysis.com/stocks/amzn/statistics, accessed 2026-09-06"},
+        "Debt-to-equity ratio": {"value": "D/E 0.46", "score": 7, "source": "stockanalysis.com/stocks/amzn/statistics, accessed 2026-09-06"}
+      },
+      "category_score": 7.6,
+      "notes": ""
+    },
+    "TSM": {
+      "parameters": {
+        "P/E ratio vs sector average": {"value": "Trailing P/E 28.35 vs sector avg ~30-35 (roughly in-line to slightly below)", "score": 6, "source": "stockanalysis.com/stocks/tsm/statistics, accessed 2026-09-06"},
+        "Revenue growth (YoY, most recent quarter or TTM)": {"value": "Q2 2026 revenue growth +36.1% YoY", "score": 10, "source": "stockanalysis.com/stocks/tsm/financials, accessed 2026-09-06"},
+        "Earnings growth (YoY)": {"value": "Q2 2026 EPS growth +77.4% YoY", "score": 10, "source": "stockanalysis.com/stocks/tsm/financials, accessed 2026-09-06"},
+        "Profit margin (operating margin, most recent)": {"value": "Operating margin 56.1%", "score": 10, "source": "stockanalysis.com/stocks/tsm/statistics, accessed 2026-09-06"},
+        "Debt-to-equity ratio": {"value": "D/E 0.17", "score": 10, "source": "stockanalysis.com/stocks/tsm/statistics, accessed 2026-09-06"}
+      },
+      "category_score": 9.2,
+      "notes": ""
+    },
+    "SPCX": {
+      "parameters": {
+        "P/E ratio vs sector average": {"value": null, "score": null, "source": null},
+        "Revenue growth (YoY, most recent quarter or TTM)": {"value": null, "score": null, "source": null},
+        "Earnings growth (YoY)": {"value": null, "score": null, "source": null},
+        "Profit margin (operating margin, most recent)": {"value": null, "score": null, "source": null},
+        "Debt-to-equity ratio": {"value": null, "score": null, "source": null}
+      },
+      "category_score": null,
+      "notes": "No verifiable public financial statements (10-Q/10-K) found disclosing standard fundamentals for SPCX at time of research; all parameters nulled per framework instruction rather than substituting estimates. Note: Agent 2 (technical) and Agent 4 (sentiment) found evidence of a June 2026 SPCX NASDAQ IPO with trading and analyst coverage data -- this fundamental research did not locate corroborating public financial filings, so treat SPCX fundamentals as unresolved/incomplete pending verification, and flag for the NO ACTION rule."
+    },
+    "AVGO": {
+      "parameters": {
+        "P/E ratio vs sector average": {"value": "Trailing P/E 45.68 vs sector avg ~30-35 (roughly 30-50% above)", "score": 3, "source": "stockanalysis.com/stocks/avgo/statistics, accessed 2026-09-06"},
+        "Revenue growth (YoY, most recent quarter or TTM)": {"value": "Q3 2026 revenue growth +85.5% YoY", "score": 10, "source": "stockanalysis.com/stocks/avgo/financials, accessed 2026-09-06"},
+        "Earnings growth (YoY)": {"value": "Q3 2026 EPS growth +215.3% YoY", "score": 10, "source": "stockanalysis.com/stocks/avgo/financials, accessed 2026-09-06"},
+        "Profit margin (operating margin, most recent)": {"value": "Operating margin 48.6%", "score": 10, "source": "stockanalysis.com/stocks/avgo/statistics, accessed 2026-09-06"},
+        "Debt-to-equity ratio": {"value": "D/E 0.60", "score": 7, "source": "stockanalysis.com/stocks/avgo/statistics, accessed 2026-09-06"}
+      },
+      "category_score": 8.0,
+      "notes": ""
+    },
+    "META": {
+      "parameters": {
+        "P/E ratio vs sector average": {"value": "Trailing P/E 23.24 vs sector avg ~30 (roughly 20-25% below)", "score": 8, "source": "stockanalysis.com/stocks/meta/statistics, accessed 2026-09-06"},
+        "Revenue growth (YoY, most recent quarter or TTM)": {"value": "Q2 2026 revenue growth +28.0% YoY", "score": 9, "source": "stockanalysis.com/stocks/meta/financials, accessed 2026-09-06"},
+        "Earnings growth (YoY)": {"value": "Q2 2026 net income/EPS declined -13.4% YoY", "score": 1, "source": "stockanalysis.com/stocks/meta/financials, accessed 2026-09-06"},
+        "Profit margin (operating margin, most recent)": {"value": "Operating margin 38.1%", "score": 10, "source": "stockanalysis.com/stocks/meta/statistics, accessed 2026-09-06"},
+        "Debt-to-equity ratio": {"value": "D/E 0.43", "score": 7, "source": "stockanalysis.com/stocks/meta/statistics, accessed 2026-09-06"}
+      },
+      "category_score": 7.0,
+      "notes": "Q2 2026 earnings decline YoY attributed to a one-time regulatory/tax charge per Meta; verify against non-GAAP figures."
+    },
+    "TSLA": {
+      "parameters": {
+        "P/E ratio vs sector average": {"value": "Trailing P/E 367.43 vs sector avg ~20-30 (far more than 50% above)", "score": 0, "source": "stockanalysis.com/stocks/tsla/statistics, accessed 2026-09-06"},
+        "Revenue growth (YoY, most recent quarter or TTM)": {"value": "Q2 2026 revenue growth +25.5% YoY", "score": 9, "source": "stockanalysis.com/stocks/tsla/financials, accessed 2026-09-06"},
+        "Earnings growth (YoY)": {"value": "Q2 2026 net income declined -3.0% YoY", "score": 1, "source": "stockanalysis.com/stocks/tsla/financials, accessed 2026-09-06"},
+        "Profit margin (operating margin, most recent)": {"value": "Operating margin 4.13%", "score": 2, "source": "stockanalysis.com/stocks/tsla/statistics, accessed 2026-09-06"},
+        "Debt-to-equity ratio": {"value": "D/E 0.18", "score": 10, "source": "stockanalysis.com/stocks/tsla/statistics, accessed 2026-09-06"}
+      },
+      "category_score": 4.4,
+      "notes": ""
+    }
+  }
+}
