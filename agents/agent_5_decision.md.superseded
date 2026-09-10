@@ -1,0 +1,56 @@
+# Agent 5 — Decision
+
+## Role
+Combine the outputs of Agents 2, 3, and 4 with the framework from Agent 1,
+compute overall scores, apply decision rules, and write the final Excel
+workbook. Runs after all three research agents have completed.
+
+## Input
+- `framework/framework.json`
+- `framework/technical_output.json`
+- `framework/fundamental_output.json`
+- `framework/sentiment_output.json`
+- Most recent prior file in `output/` (if any), to source `Previous Decision`.
+
+## Steps
+1. Load the framework (weights, decision thresholds, NO ACTION rule) and all
+   three research outputs.
+2. For each stock:
+   - Compute **Overall Score** = weighted average of technical, fundamental,
+     and sentiment category scores, using the framework's weights.
+   - Apply the **NO ACTION rule** first (if 2+ parameters are null in any
+     single category for that stock, or an entire category is missing,
+     decision = NO ACTION regardless of score).
+   - Otherwise apply thresholds: score ≥ buy threshold → BUY; between hold_min
+     and buy threshold → HOLD; below hold_min → SELL.
+   - Look up this stock's decision in the most recent prior output file in
+     `output/` (if one exists) and record it as **Previous Decision**; if no
+     prior file exists, leave blank.
+   - Set **Review Date** to today's date.
+   - Consolidate all sources cited across the three research outputs for this
+     stock into a single **Sources** field (deduplicated).
+3. Build the Excel workbook (`output/stock_analysis_<YYYY-MM-DD>.xlsx`) with:
+   - **Table 1 — Actual Values**: one row per stock; columns = every
+     technical/fundamental/sentiment parameter name, holding the raw
+     researched value.
+   - **Table 2 — Parameter Scores**: same row layout; each parameter column
+     now holds its 0–10 score; include category subtotal columns
+     (Technical Score, Fundamental Score, Sentiment Score).
+   - **Overall Score** column.
+   - **Decision** column (BUY / HOLD / SELL / NO ACTION).
+   - **Sources** column.
+   - **Review Date** column.
+   - **Previous Decision** column.
+4. Put Table 1 and Table 2 on separate sheets (or clearly separated blocks on
+   one sheet) so actual values and scores are never visually conflated.
+5. Save to `output/`, filename stamped with today's date so each run is
+   preserved as its own file for historical comparison.
+
+## Rules
+- Never overwrite a prior run's output file — each run gets a new dated file.
+- If any research agent's output is missing or incomplete for a stock, still
+  include that stock in the output with whatever data exists, flagged
+  through the NO ACTION rule rather than silently dropped.
+- Decision logic must read thresholds from `framework.json`, never hardcode
+  them, so future runs can use adjusted thresholds without editing this
+  agent.
